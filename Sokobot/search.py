@@ -1,10 +1,27 @@
+"""Copyright [2017] [Siddhant Mahapatra]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.pdf
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.rtf
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+
 
 """
 
 ** Complete search module **
 
 This search module is loosely based on the AIMA book.
-Search (Chapters 3-4)
+
 
 The way to use this code is to subclass the class 'Problem' to create 
 your own class of problems,  then create problem instances and solve them with 

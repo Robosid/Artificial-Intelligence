@@ -1,3 +1,21 @@
+"""Copyright [2017] [Siddhant Mahapatra]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.pdf
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.rtf
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
+
+
 
 # For compatibility with Python 2.7
 # A future statement is a directive to the compiler that a particular module 
@@ -22,9 +40,6 @@ An instance of this class can read a text file coding a Sokoban puzzle,
 and  store information about the positions of the walls, boxes and targets 
 list. See the header comment of the Warehouse class for details
 
-
-Last modified 2017-03-18
-by f.maire@qut.edu.au
 
 '''
 
