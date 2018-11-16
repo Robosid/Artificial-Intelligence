@@ -1,5 +1,21 @@
 #!/usr/bin/python
 
+"""Copyright [2017] [Siddhant Mahapatra]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.pdf
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.rtf
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
+
 import numpy as np
 import math
 import matplotlib.pyplot as plt
@@ -7,7 +23,17 @@ import pprint
 
 def dijkstras(occupancy_map, x_spacing, y_spacing, start, goal):
     """
-    OUTPUT: path: list of the indices of the nodes on the shortest path found
+    Implements Dijkstra's shortest path algorithm
+    Input:
+    occupancy_map - an N by M numpy array of boolean values (represented
+        as integers 0 and 1) that represents the locations of the obstacles
+        in the world
+    x_spacing - parameter representing spacing between adjacent columns
+    y_spacing - parameter representing spacing between adjacent rows
+    start - a 3 by 1 numpy array of (x,y,theta) for the starting position 
+    goal - a 3 by 1 numpy array of (x,y,theta) for the finishing position 
+    Output: 
+    path: list of the indices of the nodes on the shortest path found
         starting with "start" and ending with "end" (each node is in
         metric coordinates)
     """
@@ -21,18 +47,20 @@ def dijkstras(occupancy_map, x_spacing, y_spacing, start, goal):
         viz_map=occupancy_map
         fig = plt.figure(figsize=(12,12))
         ax = fig.add_subplot(111)
-        ax.set_title('Sid Grid Planning - Dikstras')
+        ax.set_title('Occupancy Grid')
         plt.xticks(visible=False)
         plt.yticks(visible=False)
         plt.imshow(viz_map, origin='upper', interpolation='none', clim=colormapval)
         ax.set_aspect('equal')
         plt.pause(2)
 
+    # We will use this delta function to search surrounding nodes.
     delta = [[-1, 0],  # go up
              [0, -1],  # go left
              [1, 0],  # go down
              [0, 1]]  # go right
 
+    # Each node on the map "costs" 1 step to reach.
     cost = 1
 
     # Converting numpy array of map to list of map, to make search easier.
@@ -124,7 +152,7 @@ def dijkstras(occupancy_map, x_spacing, y_spacing, start, goal):
                         plt.pause(.5)
 
 
-                    # To builds parent-child relationship
+                    # This now builds parent/child relationship
                     parent_node[possible_node] = current_node
                     if DEBUG == True:
                         print "Parent Node: \n", parent_node
@@ -163,13 +191,11 @@ def dijkstras(occupancy_map, x_spacing, y_spacing, start, goal):
 
 
         path = []
-        position = [start.item(0), start.item(1)]  # Starting point passed in
+        position = [start.item(0), start.item(1)]  # Starting point passed in by function
         path.append(position)  # Add it to the list for the path
 
         for i in range(0, len(route)):
-            position = [round((route[i][1]+0.5)*x_spacing
-
-              , 3), round((route[i][2]+0.5)*y_spacing, 3)]
+            position = [round((route[i][1]+0.5)*x_spacing, 3), round((route[i][2]+0.5)*y_spacing, 3)]
             path.append(position)
 
         # Add the goal state:
@@ -193,7 +219,9 @@ def dijkstras(occupancy_map, x_spacing, y_spacing, start, goal):
 
 
 def test():
-
+    """
+    Function that provides a few examples of maps and their solution paths
+    """
     test_map1 = np.array([
               [1, 1, 1, 1, 1, 1, 1, 1],
               [1, 0, 0, 0, 0, 0, 0, 1],

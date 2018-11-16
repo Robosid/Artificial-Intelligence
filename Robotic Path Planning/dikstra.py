@@ -1,39 +1,26 @@
 #!/usr/bin/python
 
-'''
-BSD 2-Clause License
+"""Copyright [2017] [Siddhant Mahapatra]
 
-Copyright (c) 2017, Siddhant Mahapatra
-All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.pdf
+    https://github.com/Robosid/Artificial-Intelligence/blob/master/License.rtf
 
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-'''
-
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+"""
 import numpy as np
 import math
 import matplotlib.pyplot as plt
 import pprint
 
-def astar(occupancy_map, x_spacing, y_spacing, start, goal):
+def dijkstras(occupancy_map, x_spacing, y_spacing, start, goal):
     """
     Implements Dijkstra's shortest path algorithm
     Input:
@@ -49,7 +36,7 @@ def astar(occupancy_map, x_spacing, y_spacing, start, goal):
         starting with "start" and ending with "end" (each node is in
         metric coordinates)
     """
-    DEBUG = True
+    DEBUG = False
     VISUAL = True
     colormapval = (0, 8)
     goal_found = False
@@ -75,7 +62,7 @@ def astar(occupancy_map, x_spacing, y_spacing, start, goal):
     # Each node on the map "costs" 1 step to reach.
     cost = 1
 
-    # Convert numpy array of map to list of map, makes it easier to search.
+    # Converting numpy array of map to list of map, to make search easier.
     occ_map = occupancy_map.tolist()
     if DEBUG == True:
         print "occ_map: "
@@ -90,11 +77,9 @@ def astar(occupancy_map, x_spacing, y_spacing, start, goal):
     print "Goal Pose: ", goalX, goalY
 
     # Make a map to keep track of all the nodes and their cost distance values.
-    possible_nodes = [[0 for row in range(len(occ_map[0]))] for col in range(len(occ_map))]
+    possible_nodes = [[0 for row in range(len(occ_map[0]))] for col in range(len(occ_map))] 
     row = y
     col = x
-
-    # Add Heuristic function for A* implimentation.
 
     # Show the starting node and goal node.
     # 5 looks similar to S and 6 looks similar to G.
@@ -111,11 +96,11 @@ def astar(occupancy_map, x_spacing, y_spacing, start, goal):
         pprint.pprint(possible_nodes)
 
     # The g_value will count the number of steps each node is from the start.
-    # Since we are at the start node, the total cost is 0.
+    # Since I am at the start node, the total cost is 0.
     g_value = 0
     frontier_nodes = [(g_value, col, row)] # dist, x, y
     searched_nodes = []
-    parent_node = {}  # Dictionary that Maps {child node : parent node}
+    parent_node = {}  # NOTE : Dictionary that Maps {child node : parent node}
     loopcount = 0
 
     while len(frontier_nodes) != 0:
@@ -235,35 +220,35 @@ def test():
     """
     Function that provides a few examples of maps and their solution paths
     """
-    # test_map1 = np.array([
-    #           [1, 1, 1, 1, 1, 1, 1, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 0, 0, 0, 0, 0, 0, 1],
-    #           [1, 1, 1, 1, 1, 1, 1, 1]])
-    # x_spacing1 = 0.13
-    # y_spacing1 = 0.2
-    # start1 = np.array([[0.3], [0.3], [0]])
-    # goal1 = np.array([[0.6], [1], [0]])
-    # path1 = astar(test_map1,x_spacing1,y_spacing1,start1,goal1)
-    # true_path1 = np.array([
-    #      [0.3, 0.3],
-    #      [0.325, 0.3],
-    #      [0.325, 0.5],
-    #      [0.325, 0.7],
-    #      [0.325, 0.9],
-    #      [0.325, 1.1],
-    #      [0.455, 1.1],
-    #      [0.585, 1.1],
-    #      [0.6, 1.0]
-    # ])
-    # if np.array_equal(path1,true_path1):
-    #   print("Path 1 passes")
+    test_map1 = np.array([
+              [1, 1, 1, 1, 1, 1, 1, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 0, 0, 0, 0, 0, 0, 1],
+              [1, 1, 1, 1, 1, 1, 1, 1]])
+    x_spacing1 = 0.13
+    y_spacing1 = 0.2
+    start1 = np.array([[0.3], [0.3], [0]])
+    goal1 = np.array([[0.6], [1], [0]])
+    path1 = dijkstras(test_map1,x_spacing1,y_spacing1,start1,goal1)
+    true_path1 = np.array([
+         [0.3, 0.3],
+         [0.325, 0.3],
+         [0.325, 0.5],
+         [0.325, 0.7],
+         [0.325, 0.9],
+         [0.325, 1.1],
+         [0.455, 1.1],
+         [0.585, 1.1],
+         [0.6, 1.0]
+    ])
+    if np.array_equal(path1,true_path1):
+      print("Path 1 passes")
 
     test_map2 = np.array([
              [0, 0, 0, 0, 0, 0, 0, 0],
@@ -280,7 +265,7 @@ def test():
     goal2 = np.array([[1.1], [0.9], [-1.5707963267948966]])
     x_spacing2 = 0.2
     y_spacing2 = 0.2
-    path2 = astar(test_map2,x_spacing2,y_spacing2,start2,goal2)
+    path2 = dijkstras(test_map2,x_spacing2,y_spacing2,start2,goal2)
     true_path2 = np.array([[ 0.5,  1.0],  # [2, 5]
                            [ 0.5,  1.1],  # [2, 5]
                            [ 0.5,  1.3],  # [2, 6]
@@ -314,7 +299,7 @@ def test():
     y_spacing3 = 0.2
     start3 = np.array([[0.3], [0.3], [0]])
     goal3 = np.array([[0.6], [1], [0]])
-    path3 = astar(test_map3, x_spacing3, y_spacing3, start3,goal3)
+    path3 = dijkstras(test_map3, x_spacing3, y_spacing3, start3,goal3)
 
     if path3 == False:
       print("Path 3 passes")
